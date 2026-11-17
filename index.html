@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BSIS Student Portal</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3.3 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <style>
+    :root {
+      --bsis-primary: #1e3a8a;
+      --bsis-primary-light: #3b82f6;
+      --bsis-accent: #0d9488;
+      --bsis-bg: #f8fafc;
+      --bsis-surface: #ffffff;
+      --bsis-text-main: #0f172a;
+      --bsis-text-muted: #64748b;
+      --bsis-border: #e2e8f0;
+      --bsis-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #1d4ed8 100%);
+      --bsis-card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+      --bsis-card-hover: 0 12px 28px -4px rgba(30, 58, 138, 0.14), 0 4px 10px -2px rgba(15, 23, 42, 0.05);
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bsis-bg);
+      color: var(--bsis-text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1;
+    }
+    /* Navbar Styling */
+    .navbar-custom {
+      background: #0f172a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.15);
+    }
+    .navbar-brand {
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #3b82f6, #0d9488);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+    .nav-link {
+      font-weight: 500;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0.9rem !important;
+      transition: all 0.2s ease;
+      margin: 0 0.15rem;
+    }
+    .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #fff !important;
+    }
+    .nav-link.active {
+      background-color: rgba(59, 130, 246, 0.22);
+      color: #93c5fd !important;
+      font-weight: 600;
+    }
+    /* Gradient Hero Banner */
+    .hero-banner {
+      background: var(--bsis-gradient);
+      color: #ffffff;
+      border-radius: 1.25rem;
+      padding: 1.75rem 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px -5px rgba(30, 58, 138, 0.28);
+    }
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      top: -40%;
+      right: -10%;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, rgba(255, 255, 255, 0) 70%);
+      pointer-events: none;
+    }
+    /* Cards & Hover Effects */
+    .card {
+      border: 1px solid var(--bsis-border);
+      border-radius: 1rem;
+      background-color: var(--bsis-surface);
+      box-shadow: var(--bsis-card-shadow);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--bsis-card-hover);
+      border-color: #bfdbfe;
+    }
+    /* Avatar Initials Circle */
+    .avatar-circle {
+      width: 58px;
+      height: 58px;
+      border-radius: 1rem;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0.04em;
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+      flex-shrink: 0;
+    }
+    /* Stat Icon Box */
+    .stat-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    /* Polished Badges */
+    .badge-soft-primary {
+      background-color: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #dbeafe;
+      font-weight: 600;
+    }
+    .badge-soft-success {
+      background-color: #ecfdf5;
+      color: #047857;
+      border: 1px solid #d1fae5;
+      font-weight: 600;
+    }
+    .badge-soft-warning {
+      background-color: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fef3c7;
+      font-weight: 600;
+    }
+    .badge-soft-info {
+      background-color: #f0f9ff;
+      color: #0369a1;
+      border: 1px solid #e0f2fe;
+      font-weight: 600;
+    }
+    /* Announcement Feed Item */
+    .announcement-item {
+      padding: 0.85rem 1rem;
+      border-radius: 0.75rem;
+      background-color: #f8fafc;
+      border: 1px solid #f1f5f9;
+      transition: background-color 0.2s ease;
+    }
+    .announcement-item:hover {
+      background-color: #f1f5f9;
+    }
+    /* Page View Transitions */
+    .portal-view {
+      display: none;
+      animation: fadeSlideIn 0.28s ease forwards;
+    }
+    .portal-view.active-view {
+      display: block;
+    }
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Table Refinements */
+    .table-custom thead th {
+      background-color: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 2px solid #e2e8f0;
+      padding: 0.9rem 1rem;
+    }
+    .table-custom tbody td {
+      padding: 0.9rem 1rem;
+      vertical-align: middle;
+      border-color: #f1f5f9;
+    }
+    /* Form Controls */
+    .form-control, .form-select, .input-group-text {
+      border-radius: 0.65rem;
+      padding: 0.6rem 0.9rem;
+      border-color: #cbd5e1;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--bsis-primary-light);
+      box-shadow: 0 0 0 0.22rem rgba(59, 130, 246, 0.16);
+    }
+    .btn {
+      border-radius: 0.65rem;
+      font-weight: 600;
+      padding: 0.52rem 1.1rem;
+      transition: all 0.18s ease;
+    }
+    .btn-primary {
+      background-color: #1d4ed8;
+      border-color: #1d4ed8;
+    }
+    .btn-primary:hover {
+      background-color: #1e40af;
+      border-color: #1e40af;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. Responsive Navbar with Mobile Toggler (#mainNav) -->
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top" data-bs-theme="dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#dashboard" data-page="dashboard">
+        <span class="brand-icon"><i class="bi bi-mortarboard-fill"></i></span>
+        <span>Student Portal</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-1 mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="#dashboard" data-page="dashboard">
+              <i class="bi bi-grid-1x2-fill me-1"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#schedule-grades" data-page="schedule-grades">
+              <i class="bi bi-calendar3-week-fill me-1"></i> Grades and Schedule
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#registration" data-page="registration">
+              <i class="bi bi-pencil-square me-1"></i> Registration
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 2. Main Container -->
+  <main class="container py-4">
+
+    <!-- Global Toast / Alert Banner for Cross-Page Notifications -->
+    <div id="globalNotice" class="alert alert-info alert-dismissible fade show d-none rounded-4 shadow-sm mb-4" role="alert">
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-patch-check-fill fs-5 text-primary"></i>
+        <span id="globalNoticeText" class="fw-medium"></span>
+      </div>
+      <button type="button" class="btn-close" aria-label="Close" onclick="document.getElementById('globalNotice').classList.add('d-none')"></button>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PAGE 1: DASHBOARD VIEW                                              -->
+    <!-- =================================================================== -->
+    <div id="dashboard" class="portal-view active-view">
+
+      <!-- Gradient Hero Banner & Responsive Viewport Badge -->
+      <section class="hero-banner mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 position-relative" style="z-index: 1;">
+          <div>
+            <span class="badge bg-white bg-opacity-25 text-white mb-2 px-3 py-1 rounded-pill">
+              <i class="bi bi-calendar-check me-1"></i> Academic Year 2026–2027 • 1st Semester
+            </span>
+            <h1 class="h2 fw-bold mb-1">Student Dashboard</h1>
+            <p class="mb-0 text-white-50">Welcome back! Here is your current enrollment summary and academic overview.</p>
+          </div>
+          <div class="d-flex flex-column align-items-md-end gap-2">
+            <span class="badge bg-light text-primary d-none d-md-inline-flex align-items-center gap-1 px-3 py-2 rounded-pill shadow-sm">
+              <i class="bi bi-laptop"></i> Desktop View (md and up)
+            </span>
+            <span class="badge bg-warning text-dark d-inline-flex d-md-none align-items-center gap-1 px-3 py-2 rounded-pill shadow-sm">
+              <i class="bi bi-phone"></i> Mobile View (below md)
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Stats Row -->
+      <section class="row g-3 mb-4" aria-label="Quick Academic Statistics">
+        <div class="col-12 col-md-4">
+          <div class="card card-hover h-100">
+            <div class="card-body d-flex align-items-center gap-3">
+              <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                <i class="bi bi-journal-bookmark-fill"></i>
+              </div>
+              <div>
+                <div class="text-secondary small fw-semibold text-uppercase">Total Units Enrolled</div>
+                <div class="h4 fw-bold mb-0"><span id="statTotalUnits">12</span> Units <span class="fs-6 fw-normal text-secondary">(4 Subjects)</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card card-hover h-100">
+            <div class="card-body d-flex align-items-center gap-3">
+              <div class="stat-icon bg-success bg-opacity-10 text-success">
+                <i class="bi bi-award-fill"></i>
+              </div>
+              <div>
+                <div class="text-secondary small fw-semibold text-uppercase">GPA and Academic Standing</div>
+                <div class="h4 fw-bold mb-0">1.45 GWA <span class="badge badge-soft-success fs-6 align-middle ms-1">Regular</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card card-hover h-100">
+            <div class="card-body d-flex align-items-center gap-3">
+              <div class="stat-icon bg-info bg-opacity-10 text-info">
+                <i class="bi bi-wallet2"></i>
+              </div>
+              <div>
+                <div class="text-secondary small fw-semibold text-uppercase">Lab Fee Assessment</div>
+                <div class="h4 fw-bold mb-0" id="statLabFee">₱2,500.00 <span class="badge badge-soft-info fs-6 align-middle ms-1" id="statFeeStatus">Assessed</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Profile Card (col-md-4) + Announcements Feed (col-md-8) -->
+      <section class="row g-3 mb-4">
+        <!-- Student Profile Card -->
+        <div class="col-md-4">
+          <article class="card card-hover h-100">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                  <div class="avatar-circle" id="profileAvatar">JO</div>
+                  <div>
+                    <span class="badge badge-soft-primary mb-1">Active Student</span>
+                    <h2 class="card-title h5 fw-bold mb-0" id="profileDisplayName">Jeo Ong</h2>
+                    <small class="text-secondary">Account: Jeo Ong</small>
+                  </div>
+                </div>
+                <hr class="my-3 text-secondary opacity-25">
+                <div class="small mb-2 d-flex justify-content-between">
+                  <span class="text-secondary"><i class="bi bi-person-badge me-1"></i> Student ID:</span>
+                  <strong id="profileDisplayId">2026-0221940</strong>
+                </div>
+                <div class="small mb-2 d-flex justify-content-between">
+                  <span class="text-secondary"><i class="bi bi-book me-1"></i> Program:</span>
+                  <strong>BS Information Systems</strong>
+                </div>
+                <div class="small mb-3 d-flex justify-content-between">
+                  <span class="text-secondary"><i class="bi bi-layers me-1"></i> Year Level:</span>
+                  <strong>1st Year • Irregular</strong>
+                </div>
+              </div>
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-primary btn-sm flex-grow-1" id="viewProfileBtn">
+                  <i class="bi bi-person-check-fill me-1"></i> View Details
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="switchStudentBtn" title="Toggle Student Record">
+                  <i class="bi bi-arrow-repeat"></i>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Announcements Card -->
+        <div class="col-md-8">
+          <article class="card card-hover h-100">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h2 class="card-title h5 fw-bold mb-0">
+                    <i class="bi bi-megaphone-fill text-primary me-2"></i>Department Announcements
+                  </h2>
+                  <span class="badge badge-soft-warning">2 New Updates</span>
+                </div>
+
+                <div class="d-flex flex-column gap-2 mb-3">
+                  <div class="announcement-item">
+                    <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                      <span class="fw-bold text-dark">
+                        <i class="bi bi-code-slash text-primary me-1"></i> Computer Programming (CC 113b)
+                      </span>
+                      <small class="text-secondary text-nowrap"><i class="bi bi-clock me-1"></i>2 hours ago</small>
+                    </div>
+                    <p class="mb-0 small text-secondary">
+                      Submit your responsive Bootstrap 5 Student Portal project via the LMS portal before Friday at 5:00 PM.
+                    </p>
+                  </div>
+
+                  <div class="announcement-item">
+                    <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                      <span class="fw-bold text-dark">
+                        <i class="bi bi-calendar2-check text-success me-1"></i> Enrollment &  Subject Registration Advisory
+                      </span>
+                      <small class="text-secondary text-nowrap"><i class="bi bi-clock me-1"></i>Yesterday</small>
+                    </div>
+                    <p class="mb-0 small text-secondary">
+                      Online subject registration and laboratory fee assessment for 1st Semester are now open for all BSIS students.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center pt-2 border-top">
+                <small class="text-secondary">Need to check your rooms or midterm ratings?</small>
+                <div class="d-flex gap-2">
+                  <a class="btn btn-outline-primary btn-sm nav-trigger" href="#schedule-grades" data-page="schedule-grades">
+                    <i class="bi bi-table me-1"></i> View Schedule & Grades
+                  </a>
+                  <a class="btn btn-success btn-sm nav-trigger" href="#registration" data-page="registration">
+                    <i class="bi bi-plus-circle me-1"></i> Go to Registration
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Enrolled Subjects Grid (1 col mobile, 2 cols small, 4 cols large) -->
+      <section id="subjects" class="mb-2">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+          <div>
+            <h2 class="h4 fw-bold mb-0">Enrolled Subjects</h2>
+            <p class="text-secondary small mb-0">Officially enlisted courses for the current semester</p>
+          </div>
+          <a href="#schedule-grades" data-page="schedule-grades" class="btn btn-sm btn-light border nav-trigger">
+            Full Class Schedule <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+
+        <div class="row g-3" id="enrolledSubjectsGrid">
+          <div class="col-12 col-sm-6 col-lg-3">
+            <article class="card card-hover h-100">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <div>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge badge-soft-primary">3 Units</span>
+                    <span class="badge badge-soft-success"><i class="bi bi-check-circle-fill me-1"></i>Enrolled</span>
+                  </div>
+                  <h3 class="card-title h5 fw-bold mb-1">CC 113a</h3>
+                  <p class="card-text text-secondary small mb-3">Introduction to Computing</p>
+                </div>
+                <div class="pt-2 border-top small text-secondary">
+                  <i class="bi bi-geo-alt me-1 text-primary"></i> Room 11 • Thurs
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-3">
+            <article class="card card-hover h-100">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <div>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge badge-soft-primary">3 Units</span>
+                    <span class="badge badge-soft-success"><i class="bi bi-check-circle-fill me-1"></i>Enrolled</span>
+                  </div>
+                  <h3 class="card-title h5 fw-bold mb-1">CC 113b</h3>
+                  <p class="card-text text-secondary small mb-3">Computer Programming</p>
+                </div>
+                <div class="pt-2 border-top small text-secondary">
+                  <i class="bi bi-geo-alt me-1 text-primary"></i> Room 11 • Tue
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-3">
+            <article class="card card-hover h-100">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <div>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge badge-soft-primary">3 Units</span>
+                    <span class="badge badge-soft-success"><i class="bi bi-check-circle-fill me-1"></i>Enrolled</span>
+                  </div>
+                  <h3 class="card-title h5 fw-bold mb-1">ISELECT 313a</h3>
+                  <p class="card-text text-secondary small mb-3">IT Audit and Control</p>
+                </div>
+                <div class="pt-2 border-top small text-secondary">
+                  <i class="bi bi-geo-alt me-1 text-primary"></i> Room 309 • Wed
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-3">
+            <article class="card card-hover h-100">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <div>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge badge-soft-primary">3 Units</span>
+                    <span class="badge badge-soft-success"><i class="bi bi-check-circle-fill me-1"></i>Enrolled</span>
+                  </div>
+                  <h3 class="card-title h5 fw-bold mb-1">ISELECT 313b</h3>
+                  <p class="card-text text-secondary small mb-3">IT Innovations and New Technology</p>
+                </div>
+                <div class="pt-2 border-top small text-secondary">
+                  <i class="bi bi-geo-alt me-1 text-primary"></i> Room 308 • Wed
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PAGE 2: GRADES & SCHEDULE VIEW (ADDITIONAL PAGE)                    -->
+    <!-- =================================================================== -->
+    <div id="schedule-grades" class="portal-view">
+
+      <!-- Page Header -->
+      <section class="hero-banner mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 position-relative" style="z-index: 1;">
+          <div>
+            <span class="badge bg-white bg-opacity-25 text-white mb-2 px-3 py-1 rounded-pill">
+              <i class="bi bi-journal-check me-1"></i> Academic Records & amp; Timetable
+            </span>
+            <h1 class="h2 fw-bold mb-1">Class Schedule & amp; Grades</h1>
+            <p class="mb-0 text-white-50">Weekly room assignments, instructors, and computed General Weighted Average (GWA).</p>
+          </div>
+          <div>
+            <button type="button" class="btn btn-light btn-sm text-primary fw-bold shadow-sm" onclick="window.print()">
+              <i class="bi bi-printer-fill me-1"></i> Print Study Load
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Class Schedule Table Card -->
+      <section class="card mb-4">
+        <div class="card-header bg-white py-3 d-flex flex-wrap justify-content-between align-items-center gap-2 border-bottom">
+          <div>
+            <h2 class="h5 fw-bold mb-0"><i class="bi bi-calendar3 text-primary me-2"></i>1st Semester Class Schedule</h2>
+            <small class="text-secondary">BS Information Systems • Section 3A</small>
+          </div>
+          <span class="badge badge-soft-primary px-3 py-2">Total Weekly Hours: 14 hrs</span>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover table-custom mb-0">
+              <thead>
+                <tr>
+                  <th>Days</th>
+                  <th>Time</th>
+                  <th>Subject Code</th>
+                  <th>Description</th>
+                  <th>Room / Lab</th>
+                  <th>Instructor</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleTableBody">
+                <tr>
+                  <td><span class="badge bg-primary-subtle text-primary fw-semibold">Thurs</span></td>
+                  <td class="text-nowrap fw-medium">08:00 AM – 09:30 AM</td>
+                  <td class="fw-bold text-dark">CC 113a</td>
+                  <td>Introduction to Computing</td>
+                  <td><span class="badge bg-light text-dark border"><i class="bi bi-pc-display me-1"></i>Room 11</span></td>
+                  <td>Prof. Gil Del Monte</td>
+                </tr>
+                <tr>
+                  <td><span class="badge bg-info-subtle text-info-emphasis fw-semibold">Tue</span></td>
+                  <td class="text-nowrap fw-medium">10:00 AM – 12:00 PM</td>
+                  <td class="fw-bold text-dark">CC 113b</td>
+                  <td>Computer Programming </td>
+                  <td><span class="badge bg-light text-dark border"><i class="bi bi-terminal me-1"></i>Room 11</span></td>
+                  <td>Prof. Ian Francis</td>
+                </tr>
+                <tr>
+                  <td><span class="badge bg-primary-subtle text-primary fw-semibold">Wed</span></td>
+                  <td class="text-nowrap fw-medium">01:30 PM – 03:00 PM</td>
+                  <td class="fw-bold text-dark">ISELECT 313a</td>
+                  <td>IT Audit and Control</td>
+                  <td><span class="badge bg-light text-dark border"><i class="bi bi-building me-1"></i>Room 309</span></td>
+                  <td>Prof. Xyrus Kiel Cruz</td>
+                </tr>
+                <tr>
+                  <td><span class="badge bg-warning-subtle text-warning-emphasis fw-semibold">Wed</span></td>
+                  <td class="text-nowrap fw-medium">09:00 AM – 12:00 PM</td>
+                  <td class="fw-bold text-dark">ISELECT 313b</td>
+                  <td>IS Innovations and New Technology</td>
+                  <td><span class="badge bg-light text-dark border"><i class="bi bi-building me-1"></i>Room 308</span></td>
+                  <td>Prof. Angel Orendain</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Midterm & Final Grades Summary Card -->
+      <section class="card">
+        <div class="card-header bg-white py-3 d-flex flex-wrap justify-content-between align-items-center gap-2 border-bottom">
+          <div>
+            <h2 class="h5 fw-bold mb-0"><i class="bi bi-bar-chart-line-fill text-success me-2"></i>Midterm and Final Grades Summary</h2>
+            <small class="text-secondary">Philippine Grading Scale (1.00 Highest – 5.00 Failed)</small>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge badge-soft-success px-3 py-2 fs-6">Computed GWA: <strong id="computedGwaValue">1.44</strong></span>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover table-custom mb-0">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Course Title</th>
+                  <th class="text-center">Units</th>
+                  <th class="text-center">Midterm</th>
+                  <th class="text-center">Final</th>
+                  <th class="text-center">Final Rating</th>
+                  <th class="text-end">Remarks</th>
+                </tr>
+              </thead>
+              <tbody id="gradesTableBody">
+                <tr>
+                  <td class="fw-bold">CC 113a</td>
+                  <td>Introduction to Computing</td>
+                  <td class="text-center">3</td>
+                  <td class="text-center">1.50</td>
+                  <td class="text-center">1.25</td>
+                  <td class="text-center fw-bold text-primary">1.38</td>
+                  <td class="text-end"><span class="badge badge-soft-success"><i class="bi bi-check-circle-fill me-1"></i>Passed</span></td>
+                </tr>
+                <tr>
+                  <td class="fw-bold">CC 113b</td>
+                  <td>Computer Programming</td>
+                  <td class="text-center">3</td>
+                  <td class="text-center">1.25</td>
+                  <td class="text-center">1.25</td>
+                  <td class="text-center fw-bold text-primary">1.25</td>
+                  <td class="text-end"><span class="badge badge-soft-success"><i class="bi bi-check-circle-fill me-1"></i>Passed</span></td>
+                </tr>
+                <tr>
+                  <td class="fw-bold">ISELECT 313a</td>
+                  <td>IT Audit and Control</td>
+                  <td class="text-center">3</td>
+                  <td class="text-center">1.75</td>
+                  <td class="text-center">1.50</td>
+                  <td class="text-center fw-bold text-primary">1.63</td>
+                  <td class="text-end"><span class="badge badge-soft-success"><i class="bi bi-check-circle-fill me-1"></i>Passed</span></td>
+                </tr>
+                <tr>
+                  <td class="fw-bold">ISELECT 313b</td>
+                  <td>IS Innovations and New Technology</td>
+                  <td class="text-center">3</td>
+                  <td class="text-center">1.50</td>
+                  <td class="text-center">1.50</td>
+                  <td class="text-center fw-bold text-primary">1.50</td>
+                  <td class="text-end"><span class="badge badge-soft-success"><i class="bi bi-check-circle-fill me-1"></i>Passed</span></td>
+                </tr>
+              </tbody>
+              <tfoot class="table-light fw-bold">
+                <tr>
+                  <td colspan="2" class="text-end">Total Units / General Weighted Average (GWA):</td>
+                  <td class="text-center" id="gradesTotalUnits">12</td>
+                  <td colspan="2"></td>
+                  <td class="text-center text-success fs-6" id="gradesFooterGwa">1.44</td>
+                  <td class="text-end"><span class="badge bg-success">Dean's Lister Standing</span></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PAGE 3: SUBJECT REGISTRATION VIEW                                   -->
+    <!-- =================================================================== -->
+    <div id="registration" class="portal-view">
+
+      <!-- Page Header -->
+      <section class="hero-banner mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 position-relative" style="z-index: 1;">
+          <div>
+            <span class="badge bg-white bg-opacity-25 text-white mb-2 px-3 py-1 rounded-pill">
+              <i class="bi bi-ui-checks-grid me-1"></i> Online Enrollment Portal
+            </span>
+            <h1 class="h2 fw-bold mb-1">Subject Registration</h1>
+            <p class="mb-0 text-white-50">Complete your semester validation, select additional electives, and confirm lab fee assessment.</p>
+          </div>
+          <div>
+            <span class="badge bg-light text-dark px-3 py-2 rounded-pill shadow-sm">
+              <i class="bi bi-shield-check text-success me-1"></i> Live Form Validation Active
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <div class="row g-4">
+        <!-- Registration Form Column -->
+        <div class="col-lg-8">
+          <article class="card">
+            <div class="card-body p-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="card-title h4 fw-bold mb-0">Subject Registration Form</h2>
+                <span class="badge badge-soft-primary">Step 1 of 1</span>
+              </div>
+
+              <!-- Confirmation Message Box (Hidden by default) -->
+              <div id="formMessage" class="alert alert-success d-none rounded-3 fw-medium" role="alert"></div>
+
+              <form id="registrationForm" class="row g-3" novalidate>
+                <!-- Student ID -->
+                <div class="col-md-6">
+                  <label for="studentId" class="form-label fw-semibold">Student ID</label>
+                  <input type="text" class="form-control" id="studentId" placeholder="2026-00123" value="2026-00123" required>
+                  <div class="valid-feedback">Student ID accepted.</div>
+                  <div class="invalid-feedback">Enter a valid student ID.</div>
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-6">
+                  <label for="email" class="form-label fw-semibold">Institutional Email</label>
+                  <input type="email" class="form-control" id="email" placeholder="student@bsis.edu.ph" required>
+                  <div class="valid-feedback">Email format accepted.</div>
+                  <div class="invalid-feedback">Enter a valid email address.</div>
+                </div>
+
+                <!-- Program Select -->
+                <div class="col-md-6">
+                  <label for="program" class="form-label fw-semibold">Program</label>
+                  <select id="program" class="form-select" required>
+                    <option value="" selected disabled>Select your program...</option>
+                    <option value="BS Information Systems">BS Information Systems</option>
+                    <option value="BS Computer Science">BS Computer Science</option>
+                    <option value="BS Information Technology">BS Information Technology</option>
+                  </select>
+                  <div class="valid-feedback">Program selected.</div>
+                  <div class="invalid-feedback">Please choose a program.</div>
+                </div>
+
+                <!-- Input Group with Peso Prefix -->
+                <div class="col-md-6">
+                  <label for="tuitionFee" class="form-label fw-semibold">Lab Fee Assessment</label>
+                  <div class="input-group has-validation">
+                    <span class="input-group-text fw-bold bg-light">₱</span>
+                    <input type="number" class="form-control" id="tuitionFee" aria-label="Amount" placeholder="1500" min="1" required>
+                    <div class="valid-feedback">Valid fee amount.</div>
+                    <div class="invalid-feedback">Enter a valid amount.</div>
+                  </div>
+                </div>
+
+                <!-- Optional Additional Subject Enlistment -->
+                <div class="col-12">
+                  <label for="electiveSubject" class="form-label fw-semibold">Optional Elective / Additional Subject</label>
+                  <select id="electiveSubject" class="form-select">
+                    <option value="" selected>None (Keep current 12 units)</option>
+                    <option value="Math 213|Trigonometry|3|650">Math 213 – Trigonometry (3 Units • +₱200 )</option>
+                    <option value="Fil 213|Mga Akdqng Pampanitikan|3|650">Fil 213 – Mga Akdng Pampanitikan (3 Units • +₱2000 )</option>
+                    <option value="IS 123|Fundamentals of IS |3|500">IS 123 – Computer Programming 2 (3 Units • +₱2500 Lab Fee)</option>
+                  </select>
+                  <div class="form-text">Selecting an optional subject dynamically updates your summary and dashboard.</div>
+                </div>
+
+                <!-- Agreement Checkbox -->
+                <div class="col-12 pt-2">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="agree" required>
+                    <label class="form-check-label" for="agree">
+                      I agree to the enrollment terms and certify that the information above is accurate.
+                    </label>
+                    <div class="invalid-feedback">You must agree before submitting.</div>
+                  </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="col-12 d-flex gap-2 justify-content-end pt-3 border-top">
+                  <button type="reset" class="btn btn-outline-secondary" id="resetBtn">
+                    <i class="bi bi-x-circle me-1"></i> Cancel
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check2-circle me-1"></i> Save Registration
+                  </button>
+                </div>
+              </form>
+            </div>
+          </article>
+        </div>
+
+        <!-- Live Registration Summary Preview Column -->
+        <div class="col-lg-4">
+          <aside class="card h-100 bg-white">
+            <div class="card-body p-4 d-flex flex-column justify-content-between">
+              <div>
+                <h3 class="h5 fw-bold mb-3"><i class="bi bi-receipt-cutoff text-primary me-2"></i>Registration Summary</h3>
+                <p class="small text-secondary mb-3">Live preview of your enrollment assessment before final submission.</p>
+
+                <div class="p-3 rounded-3 bg-light border mb-3">
+                  <div class="d-flex justify-content-between small mb-2">
+                    <span class="text-secondary">Student ID:</span>
+                    <strong id="previewStudentId">2026-00123</strong>
+                  </div>
+                  <div class="d-flex justify-content-between small mb-2">
+                    <span class="text-secondary">Email:</span>
+                    <strong id="previewEmail" class="text-truncate ms-2" style="max-width: 170px;">Not provided</strong>
+                  </div>
+                  <div class="d-flex justify-content-between small mb-2">
+                    <span class="text-secondary">Program:</span>
+                    <strong id="previewProgram">Not selected</strong>
+                  </div>
+                  <div class="d-flex justify-content-between small mb-2">
+                    <span class="text-secondary">Base Load:</span>
+                    <strong>12 Units (4 Subjects)</strong>
+                  </div>
+                  <div class="d-flex justify-content-between small mb-2">
+                    <span class="text-secondary">Added Elective:</span>
+                    <strong id="previewElective" class="text-primary">None</strong>
+                  </div>
+                  <hr class="my-2">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="fw-bold">Total Lab Fee:</span>
+                    <span class="h5 fw-bold text-success mb-0" id="previewTotalFee">₱0.00</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="alert alert-light border small mb-0">
+                <i class="bi bi-info-circle-fill text-primary me-1"></i>
+                Submitting this form updates your Dashboard subject cards and official assessment status immediately.
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Simple Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <div class="container">
+      <small class="text-white-50">BSIS Web Development Phase 3 • Bootstrap 5 Multi-Page Student Portal</small>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3.3 JS Bundle CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Portal Navigation, Live Preview & Form Validation Script -->
+  <script>
+    // =========================================================================
+    // 1. MULTI-PAGE SPA NAVIGATION LOGIC
+    // =========================================================================
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+    const portalViews = document.querySelectorAll('.portal-view');
+    const navbarCollapseEl = document.getElementById('mainNav');
+
+    function switchPage(pageId) {
+      // Fallback to dashboard if unknown id
+      const targetView = document.getElementById(pageId) || document.getElementById('dashboard');
+      const resolvedId = targetView.id;
+
+      // Toggle views
+      portalViews.forEach(view => {
+        view.classList.toggle('active-view', view.id === resolvedId);
+      });
+
+      // Update active navbar link
+      navLinks.forEach(link => {
+        const isMatch = link.getAttribute('data-page') === resolvedId;
+        link.classList.toggle('active', isMatch);
+        if (isMatch) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+
+      // Collapse mobile menu if open
+      if (navbarCollapseEl.classList.contains('show')) {
+        const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapseEl);
+        bsCollapse.hide();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Attach click listeners to navbar links and internal page triggers
+    document.querySelectorAll('[data-page]').forEach(trigger => {
+      trigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        const pageId = this.getAttribute('data-page');
+        history.replaceState(null, '', '#' + pageId);
+        switchPage(pageId);
+      });
+    });
+
+    // Handle initial URL hash on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const initialHash = window.location.hash.replace('#', '');
+      if (initialHash && document.getElementById(initialHash)) {
+        switchPage(initialHash);
+      }
+      updateRegistrationPreview();
+    });
+
+    // =========================================================================
+    // 2. STUDENT PROFILE INTERACTION & TOGGLE
+    // =========================================================================
+    const formMessage = document.getElementById('formMessage');
+    const globalNotice = document.getElementById('globalNotice');
+    const globalNoticeText = document.getElementById('globalNoticeText');
+
+    let isPrimaryStudent = true;
+    const switchStudentBtn = document.getElementById('switchStudentBtn');
+    const profileDisplayName = document.getElementById('profileDisplayName');
+    const profileAvatar = document.getElementById('profileAvatar');
+
+    switchStudentBtn.addEventListener('click', () => {
+      isPrimaryStudent = !isPrimaryStudent;
+      if (isPrimaryStudent) {
+        profileDisplayName.textContent = 'Jeo Ong';
+        profileAvatar.textContent = 'JO';
+      } else {
+        profileDisplayName.textContent = 'Nathan Cruz';
+        profileAvatar.textContent = 'NC';
+      }
+    });
+
+    // View Details button behavior (preserves original verification feedback & navigates smoothly)
+    document.getElementById('viewProfileBtn').addEventListener('click', function () {
+      const currentName = profileDisplayName.textContent;
+      const msg = `Student Profile Verified: ${currentName} (Regular Standing).`;
+
+      // Show in global banner on Dashboard & inside Registration formMessage
+      globalNoticeText.textContent = msg;
+      globalNotice.classList.remove('d-none');
+
+      formMessage.textContent = msg;
+      formMessage.classList.remove('d-none');
+    });
+
+    // =========================================================================
+    // 3. FORM VALIDATION, LIVE PREVIEW & DYNAMIC SUBJECT ENLISTMENT
+    // =========================================================================
+    const form = document.getElementById('registrationForm');
+    const fields = form.querySelectorAll('input[required], select[required]');
+
+    const studentIdInput = document.getElementById('studentId');
+    const emailInput = document.getElementById('email');
+    const programSelect = document.getElementById('program');
+    const tuitionFeeInput = document.getElementById('tuitionFee');
+    const electiveSelect = document.getElementById('electiveSubject');
+
+    // Preview Elements
+    const previewStudentId = document.getElementById('previewStudentId');
+    const previewEmail = document.getElementById('previewEmail');
+    const previewProgram = document.getElementById('previewProgram');
+    const previewElective = document.getElementById('previewElective');
+    const previewTotalFee = document.getElementById('previewTotalFee');
+
+    function validateField(field) {
+      if (field.checkValidity()) {
+        field.classList.remove('is-invalid');
+        field.classList.add('is-valid');
+        return true;
+      } else {
+        field.classList.remove('is-valid');
+        field.classList.add('is-invalid');
+        return false;
+      }
+    }
+
+    function updateRegistrationPreview() {
+      previewStudentId.textContent = studentIdInput.value.trim() || 'Not provided';
+      previewEmail.textContent = emailInput.value.trim() || 'Not provided';
+      previewProgram.textContent = programSelect.value || 'Not selected';
+
+      const baseFee = parseFloat(tuitionFeeInput.value) || 0;
+      let extraFee = 0;
+
+      if (electiveSelect.value) {
+        const parts = electiveSelect.value.split('|');
+        previewElective.textContent = `${parts[0]} (+${parts[2]} Units)`;
+        extraFee = parseFloat(parts[3]) || 0;
+      } else {
+        previewElective.textContent = 'None';
+      }
+
+      const total = baseFee + extraFee;
+      previewTotalFee.textContent = '₱' + total.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // Live input listeners for real-time validation & preview
+    [studentIdInput, emailInput, programSelect, tuitionFeeInput].forEach(el => {
+      el.addEventListener('input', () => {
+        validateField(el);
+        updateRegistrationPreview();
+      });
+      el.addEventListener('change', () => {
+        validateField(el);
+        updateRegistrationPreview();
+      });
+    });
+
+    electiveSelect.addEventListener('change', updateRegistrationPreview);
+
+    // Validate on submit & dynamically update Dashboard
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      let isFormValid = true;
+
+      fields.forEach(function (field) {
+        if (!validateField(field)) {
+          isFormValid = false;
+        }
+      });
+
+      if (isFormValid) {
+        const studentId = studentIdInput.value.trim();
+        const program = programSelect.value;
+        const baseFee = parseFloat(tuitionFeeInput.value) || 0;
+        let extraFee = 0;
+        let totalUnits = 12;
+
+        // Handle optional added subject on Dashboard
+        const existingExtraCard = document.getElementById('dynamicElectiveCard');
+        if (existingExtraCard) existingExtraCard.remove();
+
+        if (electiveSelect.value) {
+          const [code, title, units, fee] = electiveSelect.value.split('|');
+          extraFee = parseFloat(fee) || 0;
+          totalUnits += parseInt(units, 10) || 0;
+
+          const grid = document.getElementById('enrolledSubjectsGrid');
+          const col = document.createElement('div');
+          col.className = 'col-12 col-sm-6 col-lg-3';
+          col.id = 'dynamicElectiveCard';
+          col.innerHTML = `
+            <article class="card card-hover h-100 border-primary">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <div>
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge badge-soft-primary">${units} Units</span>
+                    <span class="badge bg-primary"><i class="bi bi-stars me-1"></i>Newly Added</span>
+                  </div>
+                  <h3 class="card-title h5 fw-bold mb-1">${code}</h3>
+                  <p class="card-text text-secondary small mb-3">${title}</p>
+                </div>
+                <div class="pt-2 border-top small text-secondary">
+                  <i class="bi bi-geo-alt me-1 text-primary"></i> Lab 305 • Sat
+                </div>
+              </div>
+            </article>
+          `;
+          grid.appendChild(col);
+        }
+
+        const totalFee = baseFee + extraFee;
+        document.getElementById('profileDisplayId').textContent = studentId;
+        document.getElementById('statTotalUnits').textContent = totalUnits;
+        document.getElementById('statLabFee').innerHTML = `₱${totalFee.toLocaleString('en-PH', { minimumFractionDigits: 2 })} <span class="badge badge-soft-success fs-6 align-middle ms-1">Confirmed</span>`;
+
+        formMessage.innerHTML = `<i class="bi bi-check-circle-fill me-2"></i>Registration saved for <strong>${studentId}</strong> (${program}) — Total Lab Fee: <strong>₱${totalFee.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</strong>.`;
+        formMessage.classList.remove('d-none');
+      } else {
+        formMessage.classList.add('d-none');
+      }
+    });
+
+    // Clear validation styles on reset
+    document.getElementById('resetBtn').addEventListener('click', function () {
+      setTimeout(() => {
+        fields.forEach(function (field) {
+          field.classList.remove('is-valid', 'is-invalid');
+        });
+        formMessage.classList.add('d-none');
+        updateRegistrationPreview();
+      }, 0);
+    });
+  </script>
+</body>
+</html>
